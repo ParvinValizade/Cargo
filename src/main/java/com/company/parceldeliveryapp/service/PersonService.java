@@ -9,6 +9,8 @@ import com.company.parceldeliveryapp.model.Role;
 import com.company.parceldeliveryapp.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PersonService {
     private final PersonRepository personRepository;
@@ -31,8 +33,8 @@ public class PersonService {
         return converter.convert(personRepository.save(person));
     }
 
-    private Person findPersonByMail(String mail){
-        return personRepository.findByMail(mail)
-                .orElseThrow(()->new UserAlreadyExistException("User already exists"));
+    private void findPersonByMail(String mail){
+        Optional<Person> person =  personRepository.findByMail(mail);
+        person.ifPresent(person1 -> {throw new UserAlreadyExistException("User already exist!");});
     }
 }
