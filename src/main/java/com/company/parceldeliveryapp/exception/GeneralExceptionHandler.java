@@ -41,8 +41,13 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body,headers,status);
     }
 
-    @ExceptionHandler(UserAlreadyExistException.class)
-    public ResponseEntity<?> userAlreadyExistException(UserAlreadyExistException exception){
+    @ExceptionHandler(AccountAlreadyExistException.class)
+    public ResponseEntity<?> userAlreadyExistException(AccountAlreadyExistException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> userNotFoundException(UserNotFoundException exception){
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
 }

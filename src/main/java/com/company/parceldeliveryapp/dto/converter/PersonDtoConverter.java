@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class PersonConverter {
+public class PersonDtoConverter {
 
     public PersonDto convert(Person from){
         return new PersonDto(

@@ -1,6 +1,6 @@
 package com.company.parceldeliveryapp.dto
 
-data class CreateUserRequest(
+data class CreatePersonRequest(
     val mail: String,
     val password: String,
     val firstName: String,
