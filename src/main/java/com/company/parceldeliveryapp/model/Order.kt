@@ -9,7 +9,7 @@ data class Order(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id:Long?,
     val name:String?,
-    val destination: String?,
+    var destination: String?,
     val status: Status?,
 
     val userMail: String?
