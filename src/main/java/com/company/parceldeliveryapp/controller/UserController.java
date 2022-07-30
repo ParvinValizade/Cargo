@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/order")
-public class OrderController {
+@RequestMapping("/v1/user/order")
+public class UserController {
     private final OrderService orderService;
 
-    public OrderController(OrderService orderService) {
+    public UserController(OrderService orderService) {
         this.orderService = orderService;
     }
 

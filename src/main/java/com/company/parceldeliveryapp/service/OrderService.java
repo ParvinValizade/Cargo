@@ -1,7 +1,9 @@
 package com.company.parceldeliveryapp.service;
 
 import com.company.parceldeliveryapp.dto.CreateOrderRequest;
+import com.company.parceldeliveryapp.dto.OrderCourierDto;
 import com.company.parceldeliveryapp.dto.OrderDto;
+import com.company.parceldeliveryapp.dto.converter.OrderCourierDtoConverter;
 import com.company.parceldeliveryapp.dto.converter.OrderDtoConverter;
 import com.company.parceldeliveryapp.exception.OrderNotFoundException;
 import com.company.parceldeliveryapp.model.Order;
@@ -15,12 +17,14 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDtoConverter converter;
+    private final OrderCourierDtoConverter orderCourierDtoConverter;
 
     private final PersonService personService;
 
-    public OrderService(OrderRepository orderRepository, OrderDtoConverter converter, PersonService personService) {
+    public OrderService(OrderRepository orderRepository, OrderDtoConverter converter, OrderCourierDtoConverter orderCourierDtoConverter, PersonService personService) {
         this.orderRepository = orderRepository;
         this.converter = converter;
+        this.orderCourierDtoConverter = orderCourierDtoConverter;
         this.personService = personService;
     }
 
@@ -53,6 +57,19 @@ public class OrderService {
     public void deleteOrder(Long id) {
         findOrderById(id);
         orderRepository.deleteById(id);
+    }
+
+    public OrderCourierDto assignOrderToCourier(Long orderId,String courierMail){
+        Order order = findOrderById(orderId);
+        personService.checkPersonIsCourierOrNot(courierMail);
+        order.setCourierMail(courierMail);
+        return orderCourierDtoConverter.convert(orderRepository.save(order));
+    }
+
+    public OrderCourierDto changeOrderStatusById(Long id, String status) {
+        Order order = findOrderById(id);
+        order.setStatus(Status.valueOf(status));
+        return orderCourierDtoConverter.convert(orderRepository.save(order));
     }
 
     protected Order findOrderById(Long id){

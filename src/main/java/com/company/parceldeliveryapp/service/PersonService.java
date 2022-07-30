@@ -4,6 +4,8 @@ import com.company.parceldeliveryapp.dto.CreatePersonRequest;
 import com.company.parceldeliveryapp.dto.PersonDto;
 import com.company.parceldeliveryapp.dto.converter.PersonDtoConverter;
 import com.company.parceldeliveryapp.exception.AccountAlreadyExistException;
+import com.company.parceldeliveryapp.exception.CourierNotFoundException;
+import com.company.parceldeliveryapp.exception.PersonNotFoundException;
 import com.company.parceldeliveryapp.exception.UserNotFoundException;
 import com.company.parceldeliveryapp.model.Person;
 import com.company.parceldeliveryapp.model.Role;
@@ -67,5 +69,15 @@ public class PersonService {
                 .orElseThrow(()->new UserNotFoundException("User couldn't be found by following mail: " + mail));
     }
 
+    protected void checkPersonIsCourierOrNot(String mail){
+        Person person = checkPersonIsExistOrNot(mail);
+        if(!person.getRole().equals(Role.COURIER)){
+            throw new CourierNotFoundException("Courier couldn't be found by following mail:" + mail);
+        }
+    }
+    private Person checkPersonIsExistOrNot(String mail){
+       return personRepository.findByMail(mail)
+                .orElseThrow(()->new PersonNotFoundException("Person couldn't be found by following mail: " + mail));
+    }
 
 }

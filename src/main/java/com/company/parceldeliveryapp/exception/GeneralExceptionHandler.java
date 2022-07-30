@@ -55,4 +55,14 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> orderNotFoundException(OrderNotFoundException exception){
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(PersonNotFoundException.class)
+    public ResponseEntity<?> personNotFoundException(PersonNotFoundException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CourierNotFoundException.class)
+    public ResponseEntity<?> courierNotFoundException(CourierNotFoundException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
+    }
 }

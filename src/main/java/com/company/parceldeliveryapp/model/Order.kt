@@ -10,16 +10,25 @@ data class Order(
     val id:Long?,
     val name:String?,
     var destination: String?,
-    val status: Status?,
+    var status: Status?,
 
-    val userMail: String?
+    val userMail: String?,
+    var courierMail: String?
 ){
-    constructor(name: String,destination: String,status: Status,userMail: String):this(
+    constructor(name: String?, destination: String?, status: Status?, userMail: String?, courierMail: String?):this(
         null,
         name=name,
         destination = destination,
         status = status,
-        userMail = userMail
+        userMail = userMail,
+        courierMail = courierMail
+    )
+    constructor(name: String,destination: String,status: Status,userMail: String):this(
+        name =name,
+        destination = destination,
+        status = status,
+        userMail = userMail,
+        null
     )
     constructor():this(
         null,
