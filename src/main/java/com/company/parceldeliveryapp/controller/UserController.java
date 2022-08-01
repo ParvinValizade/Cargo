@@ -2,6 +2,7 @@ package com.company.parceldeliveryapp.controller;
 
 import com.company.parceldeliveryapp.dto.CreateOrderRequest;
 import com.company.parceldeliveryapp.dto.OrderDto;
+import com.company.parceldeliveryapp.dto.UpdateOrderDestinationRequest;
 import com.company.parceldeliveryapp.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,9 @@ public class UserController {
         return ResponseEntity.ok(orderService.createOrder(request));
     }
 
-    @PutMapping("/updateDestination/{id}")
-    public ResponseEntity<OrderDto> updateOrderDestination(@PathVariable Long id,@RequestBody String destination){
-        return ResponseEntity.ok(orderService.updateOrderDestination(id,destination));
+    @PutMapping("/updateDestination")
+    public ResponseEntity<OrderDto> updateOrderDestination(@RequestBody UpdateOrderDestinationRequest request){
+        return ResponseEntity.ok(orderService.updateOrderDestination(request));
     }
 
     @GetMapping("/getAllOrders/{mail}")

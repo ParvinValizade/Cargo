@@ -1,8 +1,6 @@
 package com.company.parceldeliveryapp.service;
 
-import com.company.parceldeliveryapp.dto.CreateOrderRequest;
-import com.company.parceldeliveryapp.dto.OrderCourierDto;
-import com.company.parceldeliveryapp.dto.OrderDto;
+import com.company.parceldeliveryapp.dto.*;
 import com.company.parceldeliveryapp.dto.converter.OrderCourierDtoConverter;
 import com.company.parceldeliveryapp.dto.converter.OrderDtoConverter;
 import com.company.parceldeliveryapp.exception.OrderNotFoundException;
@@ -20,12 +18,14 @@ public class OrderService {
     private final OrderCourierDtoConverter orderCourierDtoConverter;
 
     private final PersonService personService;
+    private final CourierService courierService;
 
-    public OrderService(OrderRepository orderRepository, OrderDtoConverter converter, OrderCourierDtoConverter orderCourierDtoConverter, PersonService personService) {
+    public OrderService(OrderRepository orderRepository, OrderDtoConverter converter, OrderCourierDtoConverter orderCourierDtoConverter, PersonService personService, CourierService courierService) {
         this.orderRepository = orderRepository;
         this.converter = converter;
         this.orderCourierDtoConverter = orderCourierDtoConverter;
         this.personService = personService;
+        this.courierService = courierService;
     }
 
     public OrderDto createOrder(CreateOrderRequest request) {
@@ -48,9 +48,9 @@ public class OrderService {
         return converter.convert(findOrderById(id));
     }
 
-    public OrderDto updateOrderDestination(Long id, String destination) {
-        Order order = findOrderById(id);
-        order.setDestination(destination);
+    public OrderDto updateOrderDestination(UpdateOrderDestinationRequest request) {
+        Order order = findOrderById(request.getOrderId());
+        order.setDestination(request.getDestination());
         return converter.convert(orderRepository.save(order));
     }
 
@@ -59,16 +59,22 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    public OrderCourierDto assignOrderToCourier(Long orderId,String courierMail){
-        Order order = findOrderById(orderId);
-        personService.checkPersonIsCourierOrNot(courierMail);
-        order.setCourierMail(courierMail);
+    public OrderCourierDto assignOrderToCourier(AssignOrderToCourierRequest request){
+        Order order = findOrderById(request.getOrderId());
+        courierService.changeCourierStatus(request.getCourierMail());
+
+        order.setCourierMail(request.getCourierMail());
         return orderCourierDtoConverter.convert(orderRepository.save(order));
     }
 
-    public OrderCourierDto changeOrderStatusById(Long id, String status) {
-        Order order = findOrderById(id);
-        order.setStatus(Status.valueOf(status));
+    public List<OrderCourierDto> getAllAssignedOrderByCourierMail(String mail){
+        courierService.findCourierByMail(mail);
+        return orderCourierDtoConverter.convert(orderRepository.findAllByCourierMail(mail));
+    }
+
+    public OrderCourierDto changeOrderStatus(UpdateOrderStatusRequest request) {
+        Order order = findOrderById(request.getOrderId());
+        order.setStatus(Status.valueOf(request.getStatus()));
         return orderCourierDtoConverter.convert(orderRepository.save(order));
     }
 

@@ -47,17 +47,6 @@ public class PersonService {
         );
         return converter.convert(personRepository.save(person));
     }
-    public PersonDto createCourier(CreatePersonRequest request) {
-        findPersonByMail(request.getMail());
-        Person person = new Person(
-                request.getMail(),
-                request.getPassword(),
-                request.getFirstName(),
-                request.getLastName(),
-                Role.COURIER
-        );
-        return converter.convert(personRepository.save(person));
-    }
 
     private void findPersonByMail(String mail){
         Optional<Person> person =  personRepository.findByMail(mail);

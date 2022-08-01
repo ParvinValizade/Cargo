@@ -27,8 +27,4 @@ public class PersonController {
         return ResponseEntity.ok(personService.createAdmin(request));
     }
 
-    @PostMapping("/createCourier")
-    public ResponseEntity<PersonDto> createCourier(@RequestBody CreatePersonRequest request){
-        return ResponseEntity.ok(personService.createCourier(request));
-    }
 }

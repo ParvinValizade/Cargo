@@ -18,7 +18,7 @@ data class Courier(
     val firstName: String?,
     val lastName: String?,
     val role: Role?,
-    val status: CourierStatus?
+    var status: CourierStatus?
 ) {
     constructor(mail: String,password: String, firstName: String,lastName: String,role:Role,status: CourierStatus) : this(
         null,
