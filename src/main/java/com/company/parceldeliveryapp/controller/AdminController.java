@@ -38,4 +38,9 @@ public class AdminController {
     public ResponseEntity<List<CourierDto>> getAllCouriers(){
         return ResponseEntity.ok(courierService.getAllCouriers());
     }
+
+    @GetMapping("/getAllOrders")
+    public ResponseEntity<List<OrderDto>> getAllOrders(){
+        return ResponseEntity.ok(orderService.getAllOrders());
+    }
 }

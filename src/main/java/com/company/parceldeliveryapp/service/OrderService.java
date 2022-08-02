@@ -41,7 +41,10 @@ public class OrderService {
 
     public List<OrderDto> getAllOrders(String mail) {
         return converter.convert(orderRepository.findAllByUserMail(mail));
+    }
 
+    public List<OrderDto> getAllOrders(){
+        return converter.convert(orderRepository.findAll());
     }
 
     public OrderDto getOrderById(Long id){
