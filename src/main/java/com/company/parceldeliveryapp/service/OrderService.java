@@ -64,6 +64,7 @@ public class OrderService {
         courierService.changeCourierStatus(request.getCourierMail());
 
         order.setCourierMail(request.getCourierMail());
+        order.setStatus(Status.IN_COURIER);
         return orderCourierDtoConverter.convert(orderRepository.save(order));
     }
 

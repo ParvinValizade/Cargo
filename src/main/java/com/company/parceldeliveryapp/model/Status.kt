@@ -1,5 +1,5 @@
 package com.company.parceldeliveryapp.model
 
 enum class Status {
-    ORDERED,CANCELED
+    ORDERED,IN_COURIER,DELIVERED,CANCELED
 }

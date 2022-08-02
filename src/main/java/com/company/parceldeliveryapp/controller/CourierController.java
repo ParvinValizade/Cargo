@@ -1,12 +1,10 @@
 package com.company.parceldeliveryapp.controller;
 
 import com.company.parceldeliveryapp.dto.OrderCourierDto;
+import com.company.parceldeliveryapp.dto.UpdateOrderStatusRequest;
 import com.company.parceldeliveryapp.service.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,10 @@ public class CourierController {
     @GetMapping("/getAllAssignedOrders/{mail}")
     public ResponseEntity<List<OrderCourierDto>> getAllAssignedOrders(@PathVariable String mail){
         return ResponseEntity.ok(orderService.getAllAssignedOrderByCourierMail(mail));
+    }
+
+    @PutMapping("/changeOrderStatus/{orderId}")
+    public ResponseEntity<OrderCourierDto> changeOrderStatus(@PathVariable("orderId") Long id,@RequestBody UpdateOrderStatusRequest request){
+        return ResponseEntity.ok(orderService.changeOrderStatus(id,request));
     }
 }
