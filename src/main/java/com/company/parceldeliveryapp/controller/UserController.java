@@ -23,9 +23,9 @@ public class UserController {
         return ResponseEntity.ok(orderService.createOrder(request));
     }
 
-    @PutMapping("/updateDestination")
-    public ResponseEntity<OrderDto> updateOrderDestination(@RequestBody UpdateOrderDestinationRequest request){
-        return ResponseEntity.ok(orderService.updateOrderDestination(request));
+    @PutMapping("/updateDestination/{orderId}")
+    public ResponseEntity<OrderDto> updateOrderDestination(@PathVariable("orderId") Long id,@RequestBody UpdateOrderDestinationRequest request){
+        return ResponseEntity.ok(orderService.updateOrderDestination(id,request));
     }
 
     @GetMapping("/getAllOrders/{mail}")

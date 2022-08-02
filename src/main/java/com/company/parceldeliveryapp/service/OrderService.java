@@ -48,8 +48,8 @@ public class OrderService {
         return converter.convert(findOrderById(id));
     }
 
-    public OrderDto updateOrderDestination(UpdateOrderDestinationRequest request) {
-        Order order = findOrderById(request.getOrderId());
+    public OrderDto updateOrderDestination(Long id,UpdateOrderDestinationRequest request) {
+        Order order = findOrderById(id);
         order.setDestination(request.getDestination());
         return converter.convert(orderRepository.save(order));
     }
@@ -59,8 +59,8 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    public OrderCourierDto assignOrderToCourier(AssignOrderToCourierRequest request){
-        Order order = findOrderById(request.getOrderId());
+    public OrderCourierDto assignOrderToCourier(Long id,AssignOrderToCourierRequest request){
+        Order order = findOrderById(id);
         courierService.changeCourierStatus(request.getCourierMail());
 
         order.setCourierMail(request.getCourierMail());
@@ -72,8 +72,8 @@ public class OrderService {
         return orderCourierDtoConverter.convert(orderRepository.findAllByCourierMail(mail));
     }
 
-    public OrderCourierDto changeOrderStatus(UpdateOrderStatusRequest request) {
-        Order order = findOrderById(request.getOrderId());
+    public OrderCourierDto changeOrderStatus(Long id,UpdateOrderStatusRequest request) {
+        Order order = findOrderById(id);
         order.setStatus(Status.valueOf(request.getStatus()));
         return orderCourierDtoConverter.convert(orderRepository.save(order));
     }

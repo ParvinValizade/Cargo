@@ -19,14 +19,14 @@ public class AdminController {
         this.courierService = courierService;
     }
 
-    @PutMapping("/changeOrderStatus")
-    public ResponseEntity<OrderCourierDto> changeOrderStatus(@RequestBody UpdateOrderStatusRequest request){
-        return ResponseEntity.ok(orderService.changeOrderStatus(request));
+    @PutMapping("/changeOrderStatus/{orderId}")
+    public ResponseEntity<OrderCourierDto> changeOrderStatus(@PathVariable("orderId") Long id,@RequestBody UpdateOrderStatusRequest request){
+        return ResponseEntity.ok(orderService.changeOrderStatus(id,request));
     }
 
-    @PutMapping("/assignOrderToCourier")
-    public ResponseEntity<OrderCourierDto> assignOrderToCourier(@RequestBody AssignOrderToCourierRequest request){
-        return ResponseEntity.ok(orderService.assignOrderToCourier(request));
+    @PutMapping("/assignOrderToCourier/{orderId}")
+    public ResponseEntity<OrderCourierDto> assignOrderToCourier(@PathVariable("orderId") Long id,@RequestBody AssignOrderToCourierRequest request){
+        return ResponseEntity.ok(orderService.assignOrderToCourier(id,request));
     }
 
     @PostMapping("/createCourier")
