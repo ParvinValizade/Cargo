@@ -53,8 +53,8 @@ public class PersonService {
         person.ifPresent(person1 -> {throw new AccountAlreadyExistException("Account already exist!");});
     }
 
-    protected void checkUserIsExistOrNot(String mail){
-        personRepository.findByMail(mail)
+    protected Person checkUserIsExistOrNot(String mail){
+       return personRepository.findByMail(mail)
                 .orElseThrow(()->new UserNotFoundException("User couldn't be found by following mail: " + mail));
     }
 
