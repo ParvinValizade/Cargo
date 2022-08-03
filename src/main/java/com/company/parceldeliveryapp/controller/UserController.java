@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping("/getAllOrders/{mail}")
     public ResponseEntity<List<OrderDto>> getAllOrders(@PathVariable String mail){
-        return ResponseEntity.ok(orderService.getAllOrders(mail));
+        return ResponseEntity.ok(orderService.getAllOrdersByUserMail(mail));
     }
 
     @GetMapping("/getOrderById/{id}")

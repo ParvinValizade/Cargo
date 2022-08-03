@@ -6,4 +6,8 @@ public class AssignOrderToCourierRequest {
     public String getCourierMail() {
         return courierMail;
     }
+
+    public AssignOrderToCourierRequest(String courierMail) {
+        this.courierMail = courierMail;
+    }
 }

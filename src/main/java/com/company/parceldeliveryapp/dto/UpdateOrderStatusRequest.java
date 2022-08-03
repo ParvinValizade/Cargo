@@ -7,4 +7,8 @@ public class UpdateOrderStatusRequest {
     public String getStatus() {
         return status;
     }
+
+    public UpdateOrderStatusRequest(String status) {
+        this.status = status;
+    }
 }

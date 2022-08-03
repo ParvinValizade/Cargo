@@ -6,4 +6,8 @@ public class UpdateOrderDestinationRequest {
     public String getDestination() {
         return destination;
     }
+
+    public UpdateOrderDestinationRequest(String destination) {
+        this.destination = destination;
+    }
 }

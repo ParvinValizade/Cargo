@@ -39,7 +39,7 @@ public class OrderService {
         return converter.convert(orderRepository.save(order));
     }
 
-    public List<OrderDto> getAllOrders(String mail) {
+    public List<OrderDto> getAllOrdersByUserMail(String mail) {
         return converter.convert(orderRepository.findAllByUserMail(mail));
     }
 
