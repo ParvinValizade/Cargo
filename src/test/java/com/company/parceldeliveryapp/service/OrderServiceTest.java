@@ -45,7 +45,6 @@ import static org.mockito.Mockito.*;
     @Test
     void testCreateOrder_whenUserMailExist_itShouldReturnOrderDto(){
         CreateOrderRequest request = new CreateOrderRequest("Etir","Elmler Akademiyasi","parvin.valizade@mail.ru");
-        Person person = new Person("parvin.valizade@mail.ru","1234","Parvin","Valizade", Role.USER);
         Order order = generateOrder();
         Order savedOrder = generateOrder();
         OrderDto orderDto = generateOrderDto();
@@ -210,7 +209,6 @@ import static org.mockito.Mockito.*;
      @Test
      void testAssignOrderToCourier_whenOrderIdExistAndCourierExist_itShouldReturnOrderCourierDto(){
          Long orderId = 6L;
-         Courier courier = new Courier("tahir@gmail.com","123","Tahir","Mahirov",Role.COURIER, CourierStatus.FREE);
          AssignOrderToCourierRequest request = new AssignOrderToCourierRequest("tahir@gmail.com");
          Order order = generateOrder();
          Order savedOrder = generateOrder();
